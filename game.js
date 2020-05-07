@@ -1,9 +1,18 @@
 var game;
 
+var gameOptions = {
+  tileSize: 200,
+  tileSpacing: 20,
+  boardSize: {
+    rows: 4,
+    cols: 4
+  }
+}
+
 window.onload = function () {
   var gameConfig = {
-    width: 900,
-    height: 900,
+    width: this.gameOptions.boardSize.cols * (this.gameOptions.tileSize + this.gameOptions.tileSpacing) + this.gameOptions.tileSpacing,
+    height: this.gameOptions.boardSize.rows * (this.gameOptions.tileSize + this.gameOptions.tileSpacing),
     backgroundColor: 0xecf0f1,
     scene: [bootGame, playGame]
   }
@@ -43,11 +52,21 @@ class playGame extends Phaser.Scene {
     super("PlayGame");
   }
   create() {
-    for (var i = 0; i < 4; i++) {
-      for (var j = 0; j < 4; j++) {
-        this.add.image(120 + j * 220, 120 + i * 220, "emptytile");
+    for (var i = 0; i < gameOptions.boardSize.rows; i++) {
+      for (var j = 0; j < gameOptions.boardSize.cols; j++) {
+        var tilePosition = this.getTilePosition(i, j);
+        this.add.image(tilePosition.x, tilePosition.y, "emptytile");
       }
     }
+  }
+
+  // (n + 1) * spacing + (n + 0.5) * tilesize
+  getTilePosition(row, col) {
+    var posX = gameOptions.tileSpacing * (col + 1) + gameOptions.tileSize *
+      (col + 0.5);
+    var posY = gameOptions.tileSpacing * (row + 1) + gameOptions.tileSize *
+      (row + 0.5);
+    return new Phaser.Geom.Point(posX, posY);
   }
 }
 
