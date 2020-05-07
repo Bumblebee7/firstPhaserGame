@@ -56,6 +56,8 @@ class playGame extends Phaser.Scene {
       for (var j = 0; j < gameOptions.boardSize.cols; j++) {
         var tilePosition = this.getTilePosition(i, j);
         this.add.image(tilePosition.x, tilePosition.y, "emptytile");
+        // usage the preloaded sprite starting at the first tile
+        this.add.image(tilePosition.x, tilePosition.y, "tiles", 0);
       }
     }
   }
@@ -75,9 +77,16 @@ class bootGame extends Phaser.Scene {
     super("BootGame");
   }
 
-  // Preload the image to use it everytime we need it
+  /* 
+  * Preload the images and sprites to use it everytime we need it.
+  * images for static, sprites for animated content
+  */
   preload() {
     this.load.image("emptytile", "assets/sprites/emptytile.png");
+    this.load.spritesheet("tiles", "assets/sprites/tiles.png", {
+      frameWidth: gameOptions.tileSize,
+      frameHeight: gameOptions.tileSize
+    });
   }
 
   create() {
