@@ -124,9 +124,13 @@ class playGame extends Phaser.Scene {
     console.log("You pressed key #" + keyPressed);
   }
 
-  handleSwipe() {
-    console.log("Swipe detected!");
-  }
+  handleSwipe(e){
+    var swipeTime = e.upTime - e.downTime;
+    var swipe = new Phaser.Geom.Point(e.upX - e.downX, e.upY - e.downY);
+    console.log("Movement time:" + swipeTime + " ms");
+    console.log("Horizontal distance: " + swipe.x + " pixels");
+    console.log("Vertical distance: " + swipe.y + " pixels");
+    }
 }
 
 class bootGame extends Phaser.Scene {
