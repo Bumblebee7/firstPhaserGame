@@ -74,6 +74,9 @@ class playGame extends Phaser.Scene {
     }
     this.addTile();
     this.addTile();
+
+    this.input.keyboard.on("keydown", this.handleKey, this);
+    this.input.on("pointerup", this.handleSwipe, this);
   }
 
   // (n + 1) * spacing + (n + 0.5) * tilesize
@@ -114,6 +117,14 @@ class playGame extends Phaser.Scene {
         }
       });
     }
+  }
+
+  handleKey() {
+    console.log("Pressed key detected!");
+  }
+
+  handleSwipe() {
+    console.log("Swipe detected!");
   }
 }
 
