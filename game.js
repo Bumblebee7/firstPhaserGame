@@ -53,6 +53,7 @@ class playGame extends Phaser.Scene {
     super("PlayGame");
   }
   create() {
+    // the player cant start until all tweens are fully done
     this.canMove = false;
     this.boardArray = [];
     for (var i = 0; i < gameOptions.boardSize.rows; i++) {
