@@ -53,6 +53,7 @@ class playGame extends Phaser.Scene {
     super("PlayGame");
   }
   create() {
+    this.canMove = false;
     this.boardArray = [];
     for (var i = 0; i < gameOptions.boardSize.rows; i++) {
       this.boardArray[i] = [];
@@ -106,7 +107,10 @@ class playGame extends Phaser.Scene {
       // animates the alpha value from 0 to 1 in duration time
       this.boardArray[chosenTile.row][chosenTile.col].tileSprite.alpha = 0;
       this.tweens.add({
-        targets: [this.boardArray[chosenTile.row][chosenTile.col].tileSprite], alpha: 1, duration: gameOptions.tweenspeed
+        targets: [this.boardArray[chosenTile.row][chosenTile.col].tileSprite], alpha: 1, duration: gameOptions.tweenspeed, callbackScope: this, onComplete: function(){
+          console.log("Tween/Animation competed. Setting canMove to true!"),
+          this.canMove = true;
+        }
       });
     }
   }
