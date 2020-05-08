@@ -111,16 +111,17 @@ class playGame extends Phaser.Scene {
       // animates the alpha value from 0 to 1 in duration time
       this.boardArray[chosenTile.row][chosenTile.col].tileSprite.alpha = 0;
       this.tweens.add({
-        targets: [this.boardArray[chosenTile.row][chosenTile.col].tileSprite], alpha: 1, duration: gameOptions.tweenspeed, callbackScope: this, onComplete: function(){
+        targets: [this.boardArray[chosenTile.row][chosenTile.col].tileSprite], alpha: 1, duration: gameOptions.tweenspeed, callbackScope: this, onComplete: function () {
           console.log("Tween/Animation competed. Setting canMove to true!"),
-          this.canMove = true;
+            this.canMove = true;
         }
       });
     }
   }
 
-  handleKey() {
-    console.log("Pressed key detected!");
+  handleKey(e) {
+    var keyPressed = e.code
+    console.log("You pressed key #" + keyPressed);
   }
 
   handleSwipe() {
