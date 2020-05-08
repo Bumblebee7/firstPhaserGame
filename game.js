@@ -52,12 +52,21 @@ class playGame extends Phaser.Scene {
     super("PlayGame");
   }
   create() {
+    this.boardArray = [];
     for (var i = 0; i < gameOptions.boardSize.rows; i++) {
+      this.boardArray[i] = [];
       for (var j = 0; j < gameOptions.boardSize.cols; j++) {
         var tilePosition = this.getTilePosition(i, j);
         this.add.image(tilePosition.x, tilePosition.y, "emptytile");
-        // usage the preloaded sprite starting at the first tile
-        this.add.image(tilePosition.x, tilePosition.y, "tiles", 0);
+          // use the preloaded sprite starting at the first tile
+        var tile = this.add.sprite(tilePosition.x, tilePosition.y, "tiles", 0);
+        tile.visible = false;
+
+        // tileValue: 0 = empty tile
+        this.boardArray[i][j] = {
+          tileValue: 0,
+          tileSprite: tile
+        }
       }
     }
   }
