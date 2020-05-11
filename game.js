@@ -9,6 +9,10 @@ var gameOptions = {
   },
   tweenspeed: 2000
 }
+const LEFT = 0;
+const RIGHT = 1;
+const UP = 2;
+const DOWN = 3;
 
 window.onload = function () {
   var gameConfig = {
@@ -120,17 +124,42 @@ class playGame extends Phaser.Scene {
   }
 
   handleKey(e) {
-    var keyPressed = e.code
-    console.log("You pressed key #" + keyPressed);
+    // canMove = true if the tweens/animations are done
+    if (this.canMove) {
+      switch (e.code) {
+        case "KeyA":
+        case "ArrowLeft":
+          this.makeMove(LEFT);
+          break;
+        case "KeyD":
+        case "ArrowRight":
+          this.makeMove(RIGHT);
+          break;
+        case "KeyW":
+        case "ArrowUp":
+          this.makeMove(UP);
+          break;
+        case "KeyS":
+        case "ArrowDown":
+          this.makeMove(DOWN);
+          break;
+      }
+    }
   }
 
-  handleSwipe(e){
+  handleSwipe(e) {
+    // downtime = start of the swipe as timestamp
+    // updtime = end of the swipe as timestamp
     var swipeTime = e.upTime - e.downTime;
     var swipe = new Phaser.Geom.Point(e.upX - e.downX, e.upY - e.downY);
     console.log("Movement time:" + swipeTime + " ms");
     console.log("Horizontal distance: " + swipe.x + " pixels");
     console.log("Vertical distance: " + swipe.y + " pixels");
-    }
+  }
+  
+  makeMove(direction) {
+    console.log("About to move!");
+  }
 }
 
 class bootGame extends Phaser.Scene {
